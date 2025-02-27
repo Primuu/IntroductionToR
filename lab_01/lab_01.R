@@ -246,7 +246,7 @@ plot(cars,
 legend("topleft", legend="Samochody", pch="x", col="red", bg="grey")
 text(locator(), "Cadillac")
 
-# 6. Zrób wykres funkcji sinus  zbliżony do drugiego
+# 6. Zrób wykres funkcji sinus zbliżony do drugiego
 #    (http://wmii.uwm.edu.pl/~denisjuk/uwm/r/cw/ch01s06.html):
 plot.function(sin, -pi, pi,
               col="purple",
@@ -255,6 +255,122 @@ plot.function(sin, -pi, pi,
               xaxt="n")
 axis(side=1,
      at=c(-pi, -pi/2, 0, pi/2 , pi))
+
+# 7. Co to jest sinus?
+
+# 8. Na wyborach prezydenckich 2015 roku głosy oddało 48,96% wyborców. 
+#    Wyniki wyborów są przedstawione w poniższej tabeli:
+#    http://wmii.uwm.edu.pl/~denisjuk/uwm/r/cw/ch01s06.html#table:wybory
+#    Zilustruj frekwencję na wyborach wykresem zbliżonym do trzeciego
+#    (http://wmii.uwm.edu.pl/~denisjuk/uwm/r/cw/ch01s06.html):
+wybory <- read.table(file="wybory.txt", header=FALSE, sep="\t")
+wybory$V2 <- (gsub("%", "", wybory$V2))
+wybory$V2 <- as.numeric(gsub(",", ".", wybory$V2))
+
+frekwecja <- c(48.96, 100 - 48.96)
+etykiety <- c("zagłosowało", "nie głosowało")
+kolory <- c("black", "grey")
+pie(frekwecja, 
+    labels=etykiety,
+    main="Frekwencja",
+    col=kolory)
+
+# 9. Zilustruj wyniki wyborów wykresem barplot zbliżonym do czwartego
+#    (http://wmii.uwm.edu.pl/~denisjuk/uwm/r/cw/ch01s06.html) 
+#    (podpowiedź: wykorzystałem funkcję paste, 
+#    aby „podkleić” symbol procentu do liczb):
+kandydaci <- wybory$V1
+wyniki <- wybory$V2
+kolory <- c("red", "green", "blue", "cyan", "magenta", "yellow", 
+            "gray", "black", "red", "green", "blue")
+
+barplot(height=wyniki,
+        names.arg=paste(wyniki, "%", sep=""),
+        col=kolory,
+        las=2)
+
+legend("topright", legend=kandydaci, fill=kolory, bty = "n")
+
+# 10. Wykres dotchart jest lepszą wersją diagramów słupkowych. 
+#     Zilustruj wyniki wyborów wykresem zbliżonym do piątego
+#    (http://wmii.uwm.edu.pl/~denisjuk/uwm/r/cw/ch01s06.html):
+dotchart(x=rev(wyniki),
+         labels=rev(kandydaci),
+         ann=TRUE,
+         xlab="% głosów",
+         main="Wybory prezydenckie 2015",
+         )
+
+# 11. Rozkład normalny.Wygeneruj 200-elementową próbkę 
+#     rozkładu normalnego o średniej 15 i odchyleniu standardowym 5.
+proba <- rnorm(200, 15, 5)
+
+# 12. Utwórz histogram próbki:
+hist(x=proba,
+     breaks=15,
+     main="Rozkład normalny N(15,5)",
+     col="lightblue",
+     xlab="x",
+     ylab="Częstotliwość")
+
+# 13. Utwórz dla próbki histogram połączony z krzywą gęstości. 
+#     Wykorzystaj funkcje lines() oraz density().
+hist(x=proba,
+     breaks=15,
+     main="Histogram, połączony z gęstością",
+     col="lightblue",
+     xlab="Zmienna X",
+     ylab="Gęstość prawdopodobieństwa",
+     probability=TRUE)
+lines(density(proba), col="red", lwd=2)
+
+# 14. Zapisz histogram do pliku JPEG.
+jpeg("histogram.jpeg")
+hist(x=proba,
+     breaks=15,
+     main="Histogram, połączony z gęstością",
+     col="lightblue",
+     xlab="Zmienna X",
+     ylab="Gęstość prawdopodobieństwa",
+     probability=TRUE)
+lines(density(proba), col="red", lwd=2)
+dev.off()
+
+# 15. Zapisz histogram do pliku PDF
+cairo_pdf("histogram.pdf")
+hist(x=proba,
+     breaks=15,
+     main="Histogram, połączony z gęstością",
+     col="lightblue",
+     xlab="Zmienna X",
+     ylab="Gęstość prawdopodobieństwa",
+     probability=TRUE)
+lines(density(proba), col="red", lwd=2)
+dev.off()
+
+# 16. Zapisz histogram do pliku SVG
+svg("histogram.svg")
+hist(x=proba,
+     breaks=15,
+     main="Histogram, połączony z gęstością",
+     col="lightblue",
+     xlab="Zmienna X",
+     ylab="Gęstość prawdopodobieństwa",
+     probability=TRUE)
+lines(density(proba), col="red", lwd=2)
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
