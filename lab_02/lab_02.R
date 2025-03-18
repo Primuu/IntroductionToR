@@ -362,7 +362,7 @@ z[rev(order(z$Wzrost)), ]
 #     i wtórnie względem wagi. Czemu uporządkowanie 
 #     względem płci ma taki, a nie inny porządek? 
 z[order(z$Płeć, z$Waga), ]
-# ponieważ factor jest domyślnie uporządkowany alfabetycznie
+# ponieważ factor jest posortowany levelami
 
 # 13. Użyj funkcji plot(), aby stworzyć wykres danych o płci owadów. 
 plot(table(z$Płeć), 
